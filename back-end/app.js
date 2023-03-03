@@ -1,9 +1,10 @@
 require('dotenv').config();
+const { request } = require('express');
 const express = require('express');
-
+const cors = request('cors')
 // export one function that gets called once as the server is being initialized
 module.exports = function (app, server) {
-
+ app.use(cors())
     app.use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -15,7 +16,7 @@ module.exports = function (app, server) {
 
     const io = require('socket.io')(server, {
         cors: {
-            origin: "http://127.0.0.1:5000",
+            origin: "*",
             methods: ["GET", "POST"]
         }
     })
